@@ -3,7 +3,15 @@ const path = require("path");
 
 const app = express();
 
+let posts=[
+    {id:1, text:'this is post1'},
+    {id:2, text:'this is post2'},
+    {id:3, text:'this is post3'},
+]
 
+app.get('/api/posts', (req,res)=>{
+   res.json(posts)
+})
 
 // app.get("/", (req, res) => {
 //   // res.send('<h1>I am express </h1>')
