@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const port =process.env.PORT || 8000;
 
 const app = express();
 
@@ -27,4 +28,4 @@ app.get('/api/posts', (req,res)=>{
 
 app.use(express.static(path.join(__dirname,'public')))
 
-app.listen(8000, () => console.log("Listening on port 8000"));
+app.listen(port, () => console.log(`Listening on port ${port}`));
