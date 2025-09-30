@@ -15,17 +15,15 @@ app.get('/api/posts', (req,res)=>{
    res.json(posts)
 })
 
-// app.get("/", (req, res) => {
-//   // res.send('<h1>I am express </h1>')
+app.get('/api/posts/:id', (req,res)=>{
+    console.log(req.params);
+    
+    const id=parseInt(req.params.id)
+   res.json(posts.filter((post)=>post.id===id))
+})
 
-//   res.sendFile(path.join(__dirname, "public", "index.html"));
-// });
 
-// app.get("/about", (req, res) => {
-//   // res.send('I am about ')
-//   res.sendFile(path.join(__dirname, "public", "About.html"));
-// });
 
-app.use(express.static(path.join(__dirname,'public')))
+// app.use(express.static(path.join(__dirname,'public')))
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
