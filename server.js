@@ -8,7 +8,7 @@ let posts=[
     {id:1, text:'this is post1'},
     {id:2, text:'this is post2'},
     {id:3, text:'this is post3'},
-    {id:4, text:'this is post4'},
+    
 ]
 
 app.get('/api/posts', (req,res)=>{
