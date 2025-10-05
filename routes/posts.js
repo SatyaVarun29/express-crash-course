@@ -1,4 +1,4 @@
-const express=require('express')
+import express from 'express'
 const router=express.Router()
 
 
@@ -32,4 +32,13 @@ router.get("/:id", (req, res) => {
     res.status(200).json(post);
 });
 
-module.exports=router
+
+//post request
+router.post('/',(req,res)=>{
+    console.log(req.body)
+    res.status(201).json(posts)
+})
+
+
+
+export default router

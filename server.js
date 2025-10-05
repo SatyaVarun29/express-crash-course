@@ -1,9 +1,13 @@
-const express = require("express");
-const path = require("path");
+import express from 'express'
+
 const port = process.env.PORT || 8000;
-const posts=require('./routes/posts')
+import posts from './routes/posts.js'
 
 const app = express();
+
+//json body parser
+app.use(express.json())
+app.use(express.urlencoded({extends:false}))
 
 app.use('/api/posts',posts)
 
