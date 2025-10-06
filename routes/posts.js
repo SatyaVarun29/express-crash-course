@@ -45,4 +45,15 @@ router.post("/", (req, res) => {
 
 });
 
+//put request(update)
+router.put('/:id',(req,res)=>{
+    const id=parseInt(req.params.id)
+    const post=posts.find((post)=>post.id===id)
+    if(!post){
+        return res.status(400).json({msg:`data not found for this ${id}`})
+    }
+    post.text=req.body.text
+    res.status(200).json(posts)
+})
+
 export default router;
