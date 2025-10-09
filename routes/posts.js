@@ -33,39 +33,37 @@ router.get("/:id", (req, res) => {
 //post request
 router.post("/", (req, res) => {
   // console.log(req.body)
-  let newposts={
-    id:posts.length+1,
-    text:req.body.text
+  let newposts = {
+    id: posts.length + 1,
+    text: req.body.text,
+  };
+  if (!newposts.text) {
+    return res.status(400).json({ msg: "please include a title" });
   }
-  if(!newposts.text) {
-    return res.status(400).json({msg:'please include a title'})
-  }
-   posts.push(newposts)
-   res.status(201).json(posts)
-
+  posts.push(newposts);
+  res.status(201).json(posts);
 });
 
 //put request(update)
-router.put('/:id',(req,res)=>{
-    const id=parseInt(req.params.id)
-    const post=posts.find((post)=>post.id===id)
-    if(!post){
-        return res.status(400).json({msg:`data not found for this ${id}`})
-    }
-    post.text=req.body.text
-    res.status(200).json(posts)
-})
+router.put("/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const post = posts.find((post) => post.id === id);
+  if (!post) {
+    return res.status(400).json({ msg: `data not found for this ${id}` });
+  }
+  post.text = req.body.text;
+  res.status(200).json(posts);
+});
 
+router.delete("/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const post = posts.find((post) => post.id == id);
+  if (!post) {
+    return res.status(400).json({ msg: "cannot be deleted" });
+  }
+  posts = posts.filter((post) => post.id !== id);
 
-router.delete('/:id',(req,res)=>{
-    const id=parseInt(req.params.id)
-    const post=posts.find((post)=>post.id==id)
-    if(!post){
-        return res.status(400).json({msg:'cannot be deleted'})
-    }
-    posts=posts.filter((post)=>post.id!==id)
-   
-    res.status(201).json(posts)
-})
+  res.status(201).json(posts);
+});
 
 export default router;
