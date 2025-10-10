@@ -7,7 +7,15 @@ let posts = [
   { id: 3, text: "this is post3" },
 ];
 
-router.get("/", (req, res) => {
+//logger
+const logger = (req, res, next) => {
+  console.log(`${req.method} ${req.protocol}://${req.get('host')}${req.originalUrl}`);
+  console.log(`${req.originalUrl}`);
+  
+  next();
+};
+
+router.get("/", logger, (req, res) => {
   const limit = parseInt(req.query.limit);
 
   console.log(limit);
