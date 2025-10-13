@@ -22,25 +22,27 @@ router.get("/:id", (req, res, next) => {
 
   const id = parseInt(req.params.id);
   const post = posts.find((post) => post.id === id);
-//   console.log(post);
+  //   console.log(post);
 
   if (!post) {
-    const error = new Error(` data not found for this ${id}` )
-    
+    const error = new Error(` data not found for this ${id}`);
+    error.status = 404;
     return next(error);
   }
   res.status(200).json(post);
 });
 
 //post request
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
   // console.log(req.body)
   let newposts = {
     id: posts.length + 1,
     text: req.body.text,
   };
   if (!newposts.text) {
-    return res.status(400).json({ msg: "please include a title" });
+    const error = new Error("Please include a text");
+    error.status = 400;
+    return next(error);
   }
   posts.push(newposts);
   res.status(201).json(posts);
@@ -57,7 +59,7 @@ router.put("/:id", (req, res, next) => {
   res.status(200).json(posts);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", (req, res,next) => {
   const id = parseInt(req.params.id);
   const post = posts.find((post) => post.id == id);
   if (!post) {
