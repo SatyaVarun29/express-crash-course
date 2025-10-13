@@ -1,4 +1,4 @@
-import express, { json, text } from "express";
+import express from "express";
 const router = express.Router();
 
 let posts = [
@@ -7,15 +7,7 @@ let posts = [
   { id: 3, text: "this is post3" },
 ];
 
-//logger
-const logger = (req, res, next) => {
-  console.log(`${req.method} ${req.protocol}://${req.get('host')}${req.originalUrl}`);
-  console.log(`${req.originalUrl}`);
-  
-  next();
-};
-
-router.get("/", logger, (req, res) => {
+router.get("/", (req, res) => {
   const limit = parseInt(req.query.limit);
 
   console.log(limit);
@@ -25,15 +17,17 @@ router.get("/", logger, (req, res) => {
   res.json(posts);
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", (req, res, next) => {
   // console.log(req.params);
 
   const id = parseInt(req.params.id);
-  const post = posts.filter((post) => post.id === id);
-  console.log(post);
+  const post = posts.find((post) => post.id === id);
+//   console.log(post);
 
   if (!post) {
-    return res.status(404).json({ msg: `Data not found for this ${id}` });
+    const error = new Error(` data not found for this ${id}` )
+    
+    return next(error);
   }
   res.status(200).json(post);
 });
@@ -53,11 +47,11 @@ router.post("/", (req, res) => {
 });
 
 //put request(update)
-router.put("/:id", (req, res) => {
+router.put("/:id", (req, res, next) => {
   const id = parseInt(req.params.id);
   const post = posts.find((post) => post.id === id);
   if (!post) {
-    return res.status(400).json({ msg: `data not found for this ${id}` });
+    res.status(400).json(`msg:Not found with this ${id}`);
   }
   post.text = req.body.text;
   res.status(200).json(posts);
