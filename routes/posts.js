@@ -35,12 +35,12 @@ router.get("/:id", (req, res, next) => {
 //post request
 router.post("/", (req, res, next) => {
   // console.log(req.body)
-  let newposts = {
+  const newposts = {
     id: posts.length + 1,
     text: req.body.text,
   };
   if (!newposts.text) {
-    const error = new Error("Please include a text");
+    const error = new Error(`Please include a text`);
     error.status = 400;
     return next(error);
   }
