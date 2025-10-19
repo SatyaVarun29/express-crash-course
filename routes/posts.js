@@ -35,7 +35,7 @@ router.get("/:id", (req, res, next) => {
 //post request
 router.post("/", (req, res, next) => {
   // console.log(req.body)
- if (!req.body || !req.body.text) {
+  if (!newPost.text) {
     const error = new Error(`Please include a text`);
     error.status = 400;
     return next(error);
