@@ -9,15 +9,15 @@ const app = express();
 
 //json body parser
 app.use(express.json());
-app.use(express.urlencoded({ extends: false }));
+app.use(express.urlencoded({ extended: false }));
 
 //logger
 app.use(logger);
 
 app.use("/api/posts", posts);
 
-app.use(Errorhandler);
 
 // app.use(express.static(path.join(__dirname,'public')))
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+app.use(Errorhandler);
